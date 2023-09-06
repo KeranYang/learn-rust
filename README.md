@@ -62,3 +62,8 @@ $ cargo build --release
 $ cargo clean
 ```
 
+4. **The guessing game**
+
+* Because the *Cargo.lock* file is important for reproducible builds, it’s often checked into source control with the rest of the code in your project.
+* In Rust, variables are immutable by default, meaning once we give the variable a value, the value won’t change.
+* Another neat feature of Cargo is that running the `cargo doc --open` command will build documentation provided by all your dependencies locally and open it in your browser.

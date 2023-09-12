@@ -148,9 +148,41 @@ When you’re compiling in release mode with the `--release` flag, Rust does *no
 let number = if condition { 5 } else { "six" }; // This won't compile.
 ```
 
+12. **Ownership**
 
+**Safety is the Absence of Undefined Behaviour.**
 
+**A foundational goal of Rust is to ensure that your programs never have undefined behaviour.**
 
+**A secondary goal of Rust is to prevent undefined behaviour at compile time instead of runtime.**
+
+* To avoid bugs in production, improving reliability.
+* To have fewer runtime checks, improving performance.
+
+13. **The Rust model of memory**
+
+Rust **does not** allow programs to manually deallocate memory. That policy avoids the kinds of undefined behaviours shown below.
+
+```rust
+let b = Box::new([0; 100]);
+free(b); // free is not allowed
+assert!(b[0] == 0); // Pointer getting used after its pointee is freed, is an undefined behaviour!
+```
+
+**Box deallocation principle**: If a variable owns a box, when Rust deallocates the variable's frame, then Rust deallocates the box's heap memory.
+
+A very good example of Boxes: https://rust-book.cs.brown.edu/ch04-01-what-is-ownership.html#collections-use-boxes
+
+**Moved heap data principle:** if a variable `x` moves ownership of heap data to another variable `y`, then `x` cannot be used after the move.
+
+Moving ownership of heap data avoids undefined behaviour from reading deallocated memory.
+
+**Summary**
+
+- All heap data must be owned by exactly one variable.
+- Rust deallocates heap data once its owner goes out of scope.
+- Ownership can be transferred by moves, which happen on assignments and function calls.
+- Heap data can only be accessed through its current owner, not a previous owner.
 
 
 
